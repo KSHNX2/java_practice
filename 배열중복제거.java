@@ -10,11 +10,11 @@ public class 배열중복제거 {
 		}
 		
 		//null제거
-		for (int i = 0; i < sl3.length; i++) {
-				if (sl3[i] == "") {
-					for(int j=i; j<sl3.length; j++) {
-						if(sl3[j] != "")
-							sl3[i]=sl3[j];
+		for (int i = 0; i < temp.length; i++) {
+				if (temp[i] == "") {
+					for(int j=i; j<temp.length; j++) {
+						if(temp[j] != "")
+							temp[i]=temp[j];
 					}
 				}
 			}
