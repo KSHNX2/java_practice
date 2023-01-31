@@ -17,8 +17,8 @@ public class 배열중복제거 {
 							temp[i]=temp[j];
 					}
 				}
-			}
 		}
+		
 		for (int i = 1; i < temp.length; i++) {
 			System.out.println(temp[i]);
 		}
