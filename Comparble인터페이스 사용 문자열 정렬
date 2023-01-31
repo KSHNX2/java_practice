@@ -1,0 +1,57 @@
+class Fruit implements Comparable<Fruit> {
+	private String name;
+	private int price;
+
+	public Fruit(String name, int price) {
+		this.name = name;
+		this.price = price;
+	}
+
+	@Override
+	public String toString() {
+		return "<" + name + ", " + price + ">";
+		// annottation(표기하다)부분 -> 상위 인터페이스 부분을 제정의
+	}
+
+	@Override
+	public int compareTo(Fruit o) {
+		// 구현할 부분 과일의 이름과 가격이 같은것을 구현 객체간의 비교
+		if (this.price == o.price)
+			return 0;
+		else if (this.price < o.price)
+			return -1;
+		else
+			return 1;
+	}
+
+	public int getPrice() {
+		return price;
+	}
+}
+
+public class My_객체배열검색 {
+	public static void main(String[] args) {
+		Fruit[] arr = { new Fruit("사과", 200), new Fruit("키위", 500), new Fruit("오렌지", 200), new Fruit("바나나", 50),
+				new Fruit("수박", 880), new Fruit("체리", 10) };
+
+		System.out.println("정렬전::");
+		for (Fruit city : arr)
+			System.out.print(" " + city);
+		System.out.println("");
+		int count = arr.length;
+		for (int i = 0; i < count; i++) {
+			for (int j = i + 1; j < count; j++) {
+				if (arr[i].compareTo(arr[j]) > 0) {
+					Fruit temp;
+					temp = arr[i];
+					arr[i] = arr[j];
+					arr[j] = temp;
+				}
+			}
+		}
+		System.out.println("정렬후::");
+		for (Fruit city : arr)
+			System.out.print(" " + city);
+
+	}
+}
