@@ -15,7 +15,7 @@ class Fruit implements Comparable<Fruit> {
 
 	@Override
 	public int compareTo(Fruit o) {
-		// 구현할 부분 과일의 이름과 가격이 같은것을 구현 객체간의 비교
+		// 과일의 가격이 같은것을 비교하여 오름차순으로 정렬해준다.
 		if (this.price == o.price)
 			return 0;
 		else if (this.price < o.price)
