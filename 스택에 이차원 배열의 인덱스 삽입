@@ -1,0 +1,13 @@
+Stack<int[]> stack = new Stack<>();
+		
+		int[][] arr = new int[8][8];		
+		Random random = new Random();
+
+		// 첫번째 퀸의 위치
+		int i = random.nextInt(8);
+		int j = random.nextInt(8);
+		int [] index = {i,j};
+		arr[i][j] = 1;
+		stack.push(index);
+		
+		System.out.print(stack.peek()[0]+" "+stack.peek()[1]);
