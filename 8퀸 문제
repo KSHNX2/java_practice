@@ -93,13 +93,41 @@ public class Queen_cp {
 
 	private static boolean check(int i, int j) {
 		return false;
-		
+
+	}
+
+	public static void Queenslocation() {
+		System.out.println("퀸의 위치를 출력합니다.");
+		int temp;
+		int peek1;
+		int peek2;
+		while (true) {
+			temp = arr[stack.peek()[0]][stack.peek()[1]];
+			System.out.println(stack.peek()[0] + "," + stack.peek()[1] + ":" + temp);
+			peek1 = stack.peek()[0];
+			peek2 = stack.peek()[1];
+			for (int i = 0; i < 8; i++) {
+				for (int j = 0; j < 8; j++) {
+					if (arr[i][j] == temp) {
+						arr[i][j] = 0;
+						if (i == peek1 && j == peek2) {
+							arr[i][j] = temp;
+							stack.pop();
+						}
+					}
+
+				}
+			}
+			if (stack.empty()) {
+				printarr();
+				break;
+			}
+		}
 	}
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		// 첫번째 퀸의 위치
-		setQueen(1);
 
 //		// 행, 열 배제		
 //		removeStraight(1);
@@ -117,44 +145,19 @@ public class Queen_cp {
 //		removeDiagonal(2);
 //		nextQueenSet(2);
 
+		setQueen(1);
 		removeStraight(1);
 		removeDiagonal(1);
 		printarr();
 
-		nextQueenSet(2);
-		removeStraight(2);
-		removeDiagonal(2);
-		printarr();
+		for (int a = 2; a < 8; a++) {
+			nextQueenSet(a);
+			removeStraight(a);
+			removeDiagonal(a);
+			printarr();
+		}
 
-		nextQueenSet(3);
-		removeStraight(3);
-		removeDiagonal(3);
-		printarr();
-
-		nextQueenSet(4);
-		removeStraight(4);
-		removeDiagonal(4);
-		printarr();
-
-		nextQueenSet(5);
-		removeStraight(5);
-		removeDiagonal(5);
-		printarr();
-
-		nextQueenSet(6);
-		removeStraight(6);
-		removeDiagonal(6);
-		printarr();
-
-		nextQueenSet(7);
-		removeStraight(7);
-		removeDiagonal(7);
-		printarr();
-
-		nextQueenSet(8);
-		removeStraight(8);
-		removeDiagonal(8);
-		printarr();
+		Queenslocation();
 
 //		
 //		//n-1번과 퀸의 충돌 확인
