@@ -9,9 +9,7 @@ public class Queen_cp {
 	static Random random = new Random();
 	static Stack<int[]> stack = new Stack<>();
 	static int[] index = new int[2];
-
 	public static void setQueen(int q) {
-
 		int i = random.nextInt(8);
 		int j = random.nextInt(8);
 		index[0] = i;
@@ -20,7 +18,6 @@ public class Queen_cp {
 		stack.push(index);
 		System.out.println("setQueen 실행 스택의 헤드값 : " + stack.peek()[0] + "," + stack.peek()[1]);
 	}
-
 	public static void removeStraight(int q) {
 		System.out.println("가로세로를 제거합니다." + stack.peek()[0] + "," + stack.peek()[1]);
 		for (int a = 0; a < 8; a++) {
@@ -28,7 +25,6 @@ public class Queen_cp {
 			arr[a][stack.peek()[1]] = q;
 		}
 	}
-
 	public static void printarr() {
 
 		for (int i = 0; i < 8; i++) {
@@ -38,10 +34,21 @@ public class Queen_cp {
 			}
 			System.out.println();
 		}
-
 	}
-
-	public static void removeDiagonal(int q) {
+	public static void resetarr() {
+		for (int i = 0; i < 8; i++) {
+			for (int j = 0; j < 8; j++) {
+				arr[i][j] = 0;
+			}
+		}
+		stack.clear();
+	}
+	public static void removeStraightDiagonal(int q) {
+		System.out.println("가로세로를 제거합니다." + stack.peek()[0] + "," + stack.peek()[1]);
+		for (int a = 0; a < 8; a++) {
+			arr[stack.peek()[0]][a] = q;
+			arr[a][stack.peek()[1]] = q;
+		}
 		System.out.println("대각선을 제거합니다." + stack.peek()[0] + "," + stack.peek()[1]);
 		int drd = stack.peek()[0];
 		for (int a = stack.peek()[1]; a < 8; a++) {
@@ -50,7 +57,6 @@ public class Queen_cp {
 			arr[drd][a] = q;
 			drd++;
 		}
-
 		int dru = stack.peek()[0];
 		for (int a = stack.peek()[1]; a < 8; a++) {
 			if (dru < 0)
@@ -58,7 +64,6 @@ public class Queen_cp {
 			arr[dru][a] = q;
 			dru--;
 		}
-
 		int dld = stack.peek()[1];
 		for (int a = stack.peek()[0]; a < 8; a++) {
 			if (dld < 0)
@@ -66,7 +71,6 @@ public class Queen_cp {
 			arr[a][dld] = q;
 			dld--;
 		}
-
 		int dlu = stack.peek()[1];
 		for (int a = stack.peek()[0]; a >= 0; a--) {
 			if (dlu < 0)
@@ -74,14 +78,26 @@ public class Queen_cp {
 			arr[a][dlu] = q;
 			dlu--;
 		}
-
 	}
-
-	public static void nextQueenSet(int q) {
+	public static boolean nextQueenSet(int q) {
+		if (q == 1) {
+			resetarr();
+			int i = random.nextInt(8);
+			int j = random.nextInt(8);
+			index[0] = i;
+			index[1] = j;
+			arr[0][0] = 1;
+			stack.push(index);
+			System.out.println("첫번째 퀸의 위치 : " + stack.peek()[0] + "," + stack.peek()[1]);
+			return false;
+		}
 		while (true) {
 			int i = random.nextInt(8);
 			int j = random.nextInt(8);
-			if (arr[i][j] == 0) {
+			if (check()) {
+				Queenslocation();
+				return true;
+			} else if (arr[i][j] == 0) {
 				arr[i][j] = q;
 				int[] index = { i, j };
 				stack.push(index);
@@ -89,11 +105,20 @@ public class Queen_cp {
 				break;
 			}
 		}
+		return false;
 	}
 
-	private static boolean check(int i, int j) {
-		return false;
-
+	private static boolean check() {
+		for (int i = 0; i < 8; i++) {
+			for (int j = 0; j < 8; j++)
+				if (arr[i][j] == 0) {
+					return false;
+					// 배열에 0이 있으면 false
+				}
+		}
+		System.out.println("배열에 0이 없습니다.");
+		return true;
+		// 배열에 0이 없으면 중단을 위해 true
 	}
 
 	public static void Queenslocation() {
@@ -126,44 +151,21 @@ public class Queen_cp {
 	}
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		// 첫번째 퀸의 위치
+		int a;
+		while (true) {
 
-//		// 행, 열 배제		
-//		removeStraight(1);
-//		
-//		// 대각선 배제(diagonal right/left down/up)
-//		removeDiagonal(1);
-//
-//		// n번째 퀸의 위치
-//		nextQueenSet(1);
-//		
-//		// 행, 열 배제		
-//		removeStraight(2);
-//				
-//		// 대각선 배제(diagonal right/left down/up)
-//		removeDiagonal(2);
-//		nextQueenSet(2);
-
-		setQueen(1);
-		removeStraight(1);
-		removeDiagonal(1);
-		printarr();
-
-		for (int a = 2; a < 8; a++) {
-			nextQueenSet(a);
-			removeStraight(a);
-			removeDiagonal(a);
-			printarr();
+			for (a = 1; a < 9; a++) {
+				if (nextQueenSet(a)) {
+					a = 1;
+					break;
+				}
+				removeStraightDiagonal(a);
+				printarr();
+				System.out.println("a의 값" + a);
+			}
+			if (a == 8)
+				break;
 		}
-
-		Queenslocation();
-
-//		
-//		//n-1번과 퀸의 충돌 확인
-//		check();
-//		// 퀸의 위치 확인
-//		printarr();
 
 	}
 
